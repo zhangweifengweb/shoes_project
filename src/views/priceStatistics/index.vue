@@ -1,0 +1,121 @@
+<template>
+  <div>
+    <div class="showsList_main">
+      <!-- 检索条件 -->
+      <div class="form-parent-newbox">
+
+      </div>
+      <!-- 表格 -->
+      <div class="table-buttons-box-index">
+      </div>
+      <P class="title_box">账号</P>
+      <el-table ref="table1" :data="tableData1" tooltip-effect="dark" style="width: 100%" :height="tableHeight"
+                border :header-cell-style="{ background: '#FAFAFA', color: '#262626', textAlign: 'center' }"
+                highlight-current-row
+      >
+        <el-table-column align="center" width="60" label="序号" type="index"></el-table-column>
+        <el-table-column sortable align="center" prop="name" label="账号名"></el-table-column>
+        <el-table-column sortable align="center" prop="platform" label="购买平台"
+        ></el-table-column>
+        <el-table-column sortable align="center" prop="totalBuyRate" label="购买金额"
+        ></el-table-column>
+        <el-table-column sortable align="center" prop="totalSellRate" label="销售金额"
+        ></el-table-column>
+        <el-table-column sortable align="center" prop="totalProfit" label="利润"
+        ></el-table-column>
+      </el-table>
+      <P class="title_box">平台</P>
+      <el-table ref="table2" :data="tableData2" tooltip-effect="dark" style="width: 100%" :height="tableHeight"
+                border :header-cell-style="{ background: '#FAFAFA', color: '#262626', textAlign: 'center' }"
+                highlight-current-row
+      >
+        <el-table-column align="center" width="60" label="序号" type="index"></el-table-column>
+        <el-table-column sortable align="center" prop="platform" label="所属平台"
+        ></el-table-column>
+        <el-table-column sortable align="center" prop="endTotalBuyRate" label="购入总金额"></el-table-column>
+        <el-table-column sortable align="center" prop="endTotalSellRate" label="总销售额"></el-table-column>
+        <el-table-column sortable align="center" prop="endTotalProfitRate" label="总利润"></el-table-column>
+      </el-table>
+      <P class="title_box">总计</P>
+      <el-table ref="table3" :data="tableData3" tooltip-effect="dark" style="width: 100%" :height="tableHeight"
+                border :header-cell-style="{ background: '#FAFAFA', color: '#262626', textAlign: 'center' }"
+                highlight-current-row
+      >
+        <el-table-column align="center" width="60" label="序号" type="index"></el-table-column>
+        <el-table-column sortable align="center" prop="endTotalBuyRate" label="购入总金额"></el-table-column>
+        <el-table-column sortable align="center" prop="endTotalSellRate" label="总销售额"></el-table-column>
+        <el-table-column sortable align="center" prop="endTotalProfitRate" label="总利润"></el-table-column>
+      </el-table>
+      <!-- 分页 -->
+    </div>
+
+  </div>
+</template>
+<script>
+let me;
+import {
+  count2
+} from "@/api/shoesApi/shoesApis";
+
+export default {
+  components: {},
+  data() {
+    return {
+
+      tableHeight: "74vh",
+      tableData1: [],
+      tableData2: [],
+      tableData3: [],
+    };
+  },
+  mounted() {
+    me = this;
+    // me.loginHandle()
+    me.refreshTableHeight();
+    window.onresize = me.refreshTableHeight;
+    me.queryItemsList();// 查询页面列表
+  },
+  beforeDestroy() {
+    window.onresize = function () {
+    };
+  },
+
+  methods: {
+    /**
+     * 设置表格高度
+     */
+    refreshTableHeight() {
+      me.$nextTick(() => {
+        let pageHeight = document.querySelector(".el-main");
+        let formDom = document.querySelector(".form-parent-newbox");
+        let tableButtonsDom = document.querySelector(".table-buttons-box-index");
+        me.tableHeight = (pageHeight.offsetHeight - formDom.offsetHeight - tableButtonsDom.offsetHeight - 40) / 3 + "px";
+      })
+    },
+
+    // 查询表格数据
+    queryItemsList() {
+      count2().then(res => {
+        if (res.code == 0) {
+          me.tableData1 = res.data.list;
+          me.tableData2 = res.data.shoesItemCount;
+          me.tableData3.push(res.data.shoesTotalCount)
+        }
+      })
+        .catch(err => {
+          // if (err && err.response && err.response.status) {
+          //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
+          // } else {
+          //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
+          // }
+        })
+    },
+
+  },
+};
+</script>
+<style lang="less" scoped>
+.title_box {
+  font-size: 24px;
+}
+</style>
