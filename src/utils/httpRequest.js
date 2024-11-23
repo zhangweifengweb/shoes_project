@@ -8,8 +8,8 @@ import router from "@/router";
 // loading设置
 let globalLoading
 // 环境的切换
-axios.defaults.baseURL = '/devShoes';
-// axios.defaults.baseURL = '/wcc';
+// axios.defaults.baseURL = '/devShoes';
+axios.defaults.baseURL = '/wcc';
 // if (process.env.NODE_ENV == "development") {
 //   //开发环境
 //   axios.defaults.baseURL = '/devShoes';

@@ -5,8 +5,49 @@
       <div class="form-parent-newbox">
 
       </div>
+
       <!-- 表格 -->
       <div class="table-buttons-box-index">
+      </div>
+      <div class="statisClass">
+        <el-row>
+          <el-col :span="8">
+            <div>
+              <el-statistic title="总成本">
+                <template slot="prefix">
+                  <i class="el-icon-star-on"></i>
+                </template>
+                <template slot="formatter">
+                  <p>{{ endTotalBuyRate }}</p>
+                </template>
+              </el-statistic>
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div>
+              <el-statistic title="总销售额">
+                <template slot="prefix">
+                  <i class="el-icon-s-flag" style="color: red;font-size: 18px;"></i>
+                </template>
+                <template slot="formatter">
+                  <p>{{ endTotalSellRate }}</p>
+                </template>
+              </el-statistic>
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div>
+              <el-statistic title="总利润">
+                <template slot="prefix">
+                  <i class="el-icon-info" style="color: greenyellow;font-size: 18px;"></i>
+                </template>
+                <template slot="formatter">
+                  <p>{{ endTotalProfitRate }}</p>
+                </template>
+              </el-statistic>
+            </div>
+          </el-col>
+        </el-row>
       </div>
       <P class="title_box">账号</P>
       <el-table ref="table1" :data="tableData1" tooltip-effect="dark" style="width: 100%" :height="tableHeight"
@@ -36,16 +77,16 @@
         <el-table-column sortable align="center" prop="endTotalSellRate" label="总销售额"></el-table-column>
         <el-table-column sortable align="center" prop="endTotalProfitRate" label="总利润"></el-table-column>
       </el-table>
-      <P class="title_box">总计</P>
-      <el-table ref="table3" :data="tableData3" tooltip-effect="dark" style="width: 100%" :height="tableHeight"
-                border :header-cell-style="{ background: '#FAFAFA', color: '#262626', textAlign: 'center' }"
-                highlight-current-row
-      >
-        <el-table-column align="center" width="60" label="序号" type="index"></el-table-column>
-        <el-table-column sortable align="center" prop="endTotalBuyRate" label="购入总金额"></el-table-column>
-        <el-table-column sortable align="center" prop="endTotalSellRate" label="总销售额"></el-table-column>
-        <el-table-column sortable align="center" prop="endTotalProfitRate" label="总利润"></el-table-column>
-      </el-table>
+      <!--      <P class="title_box">总计</P>-->
+      <!--      <el-table ref="table3" :data="tableData3" tooltip-effect="dark" style="width: 100%" :height="tableHeight"-->
+      <!--                border :header-cell-style="{ background: '#FAFAFA', color: '#262626', textAlign: 'center' }"-->
+      <!--                highlight-current-row-->
+      <!--      >-->
+      <!--        <el-table-column align="center" width="60" label="序号" type="index"></el-table-column>-->
+      <!--        <el-table-column sortable align="center" prop="endTotalBuyRate" label="购入总金额"></el-table-column>-->
+      <!--        <el-table-column sortable align="center" prop="endTotalSellRate" label="总销售额"></el-table-column>-->
+      <!--        <el-table-column sortable align="center" prop="endTotalProfitRate" label="总利润"></el-table-column>-->
+      <!--      </el-table>-->
       <!-- 分页 -->
     </div>
 
@@ -65,7 +106,9 @@ export default {
       tableHeight: "74vh",
       tableData1: [],
       tableData2: [],
-      tableData3: [],
+      endTotalBuyRate: "",
+      endTotalSellRate: "",
+      endTotalProfitRate: "",
     };
   },
   mounted() {
@@ -99,16 +142,19 @@ export default {
         if (res.code == 0) {
           me.tableData1 = res.data.list;
           me.tableData2 = res.data.shoesItemCount;
-          me.tableData3.push(res.data.shoesTotalCount)
+          // me.tableData3.push(res.data.shoesTotalCount)
+          me.endTotalBuyRate = res.data.shoesTotalCount.endTotalBuyRate
+          me.endTotalSellRate = res.data.shoesTotalCount.endTotalSellRate
+          me.endTotalProfitRate = res.data.shoesTotalCount.endTotalProfitRate
         }
       })
-        .catch(err => {
-          // if (err && err.response && err.response.status) {
-          //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
-          // } else {
-          //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
-          // }
-        })
+          .catch(err => {
+            // if (err && err.response && err.response.status) {
+            //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
+            // } else {
+            //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
+            // }
+          })
     },
 
   },
@@ -117,5 +163,26 @@ export default {
 <style lang="less" scoped>
 .title_box {
   font-size: 24px;
+}
+
+.statisClass {
+  padding: 1%;
+  border: 1px dashed #ccc;
+  border-radius: 5px;
+
+  /deep/ .el-statistic {
+    .title {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .con {
+      .prefix {
+        font-size: 18px;
+        color: blue;
+      }
+
+    }
+  }
 }
 </style>

@@ -41,8 +41,8 @@ export default {
     return {
       publicFunc: publicFunc,
       formData: {
-        userName: "www",
-        password: "11"
+        userName: "",
+        password: ""
       }
     }
   },
@@ -65,7 +65,7 @@ export default {
           localStorage.setItem("perInfo", JSON.stringify(info))
           publicFunc.showModalTips("登录成功！！！");
           this.$router.push({
-            path: "/home"
+            path: "/home/shoeslist"
           })
         } else {
           publicFunc.showModalTips(res.msg || `查询失败，请稍后重试~\n错误码：${res.code}`);
