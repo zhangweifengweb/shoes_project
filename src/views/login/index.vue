@@ -18,7 +18,7 @@
         </el-row>
         <el-row>
           <el-col>
-            <el-button type="primary" @click="loginHandle">登录</el-button>
+            <el-button type="primary" @click="login">登录</el-button>
             <el-button @click="resetHandle">重置</el-button>
           </el-col>
         </el-row>
@@ -48,16 +48,32 @@ export default {
   },
   mounted() {
     // this.login()
+    window.addEventListener('keyup',this.handleKeyDown)
+  },
+  beforeDestroy() {
+    window.removeEventListener('keyup', this.handleKeyDown);
   },
   methods: {
+    handleKeyDown(event){
+      const keyCode = event.keyCode;
+      if(keyCode=='13'){
+        this.login()
+      }
+    },
     resetHandle() {
       this.formData.userName = ""
       this.formData.password = ""
     },
-    loginHandle() {
-      this.login()
-    },
     login() {
+      if(!this.formData.userName){
+        publicFunc.showModalTips("请输入账号！！！");
+        return
+      }
+
+      if(!this.formData.password){
+        publicFunc.showModalTips("请输入密码！！！");
+        return
+      }
       loginHandle(this.formData).then(res => {
         if (res.code == 0) {
           let info = res.data
@@ -65,7 +81,7 @@ export default {
           localStorage.setItem("perInfo", JSON.stringify(info))
           publicFunc.showModalTips("登录成功！！！");
           this.$router.push({
-            path: "/home/shoeslist"
+            path: "/home/priceStatistics"
           })
         } else {
           publicFunc.showModalTips(res.msg || `查询失败，请稍后重试~\n错误码：${res.code}`);

@@ -27,8 +27,9 @@
             <div>
               <el-statistic title="总销售额">
                 <template slot="prefix">
-                  <i class="el-icon-s-flag" style="color: red;font-size: 18px;"></i>
+                  <i class="el-icon-info" style="color: greenyellow;font-size: 18px;"></i>
                 </template>
+
                 <template slot="formatter">
                   <p>{{ endTotalSellRate }}</p>
                 </template>
@@ -38,11 +39,8 @@
           <el-col :span="8">
             <div>
               <el-statistic title="总利润">
-                <template slot="prefix">
-                  <i class="el-icon-info" style="color: greenyellow;font-size: 18px;"></i>
-                </template>
                 <template slot="formatter">
-                  <p>{{ endTotalProfitRate }}</p>
+                  <p style="color: red">{{ endTotalProfitRate }}</p>
                 </template>
               </el-statistic>
             </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="navbox">
-    <el-menu default-active="saleInfo" @select="handleOpen" class="el-menu-vertical-demo">
+    <el-menu default-active="priceStatics" @select="handleOpen" class="el-menu-vertical-demo">
       <el-menu-item index="priceStatics">
         <i class="el-icon-s-data"></i>
         <span slot="title">账号信息总览</span>
