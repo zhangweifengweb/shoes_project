@@ -33,10 +33,10 @@
               <el-form-item label="是否签收">
                 <el-select v-model="formData.isSign" placeholder="请选择">
                   <el-option
-                    v-for="item in isOrNotList"
-                    :key="item.code"
-                    :label="item.name"
-                    :value="item.code"
+                      v-for="item in isOrNotList"
+                      :key="item.code"
+                      :label="item.name"
+                      :value="item.code"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -45,10 +45,22 @@
               <el-form-item label="是否送定">
                 <el-select v-model="formData.isSendPayment" placeholder="请选择">
                   <el-option
-                    v-for="item in isOrNotList"
-                    :key="item.code"
-                    :label="item.name"
-                    :value="item.code"
+                      v-for="item in isOrNotList"
+                      :key="item.code"
+                      :label="item.name"
+                      :value="item.code"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="6">
+              <el-form-item label="是否有利润">
+                <el-select v-model="formData.isProfit" placeholder="请选择">
+                  <el-option
+                      v-for="item in isOrNotList"
+                      :key="item.code"
+                      :label="item.name"
+                      :value="item.code"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -57,10 +69,10 @@
               <el-form-item label="所属平台">
                 <el-select v-model="formData.platform" placeholder="请选择">
                   <el-option
-                    v-for="item in platformlist"
-                    :key="item.code"
-                    :label="item.name"
-                    :value="item.code"
+                      v-for="item in platformlist"
+                      :key="item.code"
+                      :label="item.name"
+                      :value="item.code"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -139,48 +151,48 @@
                   class="pagination-area-box-index"></Pagination>
     </div>
     <el-dialog
-      class="dialogInfo"
-      :title="dialogType=='add'?'新增':'修改'"
-      :visible.sync="addShowInfoDialogVisible"
-      :close-on-click-modal="false"
-      :close-on-press-escape="false"
-      width="60%"
-      @close="closeAddperDialog">
+        class="dialogInfo"
+        :title="dialogType=='add'?'新增':'修改'"
+        :visible.sync="addShowInfoDialogVisible"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+        width="60%"
+        @close="closeAddperDialog">
       <el-form :inline="true" :model="DialogFormData" size="mini" label-position="left">
         <el-row :gutter="10">
           <el-col :span="6">
             <el-form-item label="名称:">
               <el-input
-                clearable
-                placeholder="请输入"
-                v-model="DialogFormData.name"
+                  clearable
+                  placeholder="请输入"
+                  v-model="DialogFormData.name"
               />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="货号:">
               <el-input
-                clearable
-                placeholder="请输入"
-                v-model="DialogFormData.number"
+                  clearable
+                  placeholder="请输入"
+                  v-model="DialogFormData.number"
               />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="尺码:">
               <el-input
-                clearable
-                placeholder="请输入"
-                v-model="DialogFormData.size"
+                  clearable
+                  placeholder="请输入"
+                  v-model="DialogFormData.size"
               />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="买入价:">
               <el-input
-                clearable
-                placeholder="请输入"
-                v-model="DialogFormData.buyRate"
+                  clearable
+                  placeholder="请输入"
+                  v-model="DialogFormData.buyRate"
               />
             </el-form-item>
           </el-col>
@@ -189,9 +201,9 @@
           <el-col :span="6">
             <el-form-item label="卖出价:">
               <el-input
-                clearable
-                placeholder="请输入"
-                v-model="DialogFormData.sellRate"
+                  clearable
+                  placeholder="请输入"
+                  v-model="DialogFormData.sellRate"
               />
             </el-form-item>
           </el-col>
@@ -208,10 +220,10 @@
             <el-form-item label="是否签收:">
               <el-select v-model="DialogFormData.isSign" placeholder="请选择">
                 <el-option
-                  v-for="item in isOrNotList"
-                  :key="item.code"
-                  :label="item.name"
-                  :value="item.code"
+                    v-for="item in isOrNotList"
+                    :key="item.code"
+                    :label="item.name"
+                    :value="item.code"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -220,10 +232,10 @@
             <el-form-item label="是否送定:">
               <el-select v-model="DialogFormData.isSendPayment" placeholder="请选择">
                 <el-option
-                  v-for="item in isOrNotList"
-                  :key="item.code"
-                  :label="item.name"
-                  :value="item.code"
+                    v-for="item in isOrNotList"
+                    :key="item.code"
+                    :label="item.name"
+                    :value="item.code"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -233,18 +245,18 @@
           <el-col :span="6">
             <el-form-item label="送定金额:">
               <el-input
-                clearable
-                placeholder="请输入"
-                v-model="DialogFormData.sendPaymentMoney"
+                  clearable
+                  placeholder="请输入"
+                  v-model="DialogFormData.sendPaymentMoney"
               />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="创建人:">
               <el-input
-                clearable
-                placeholder="请输入"
-                v-model="DialogFormData.createBy"
+                  clearable
+                  placeholder="请输入"
+                  v-model="DialogFormData.createBy"
               />
             </el-form-item>
           </el-col>
@@ -261,10 +273,10 @@
             <el-form-item label="所属平台:">
               <el-select v-model="DialogFormData.platform" placeholder="请选择">
                 <el-option
-                  v-for="item in platformlist"
-                  :key="item.code"
-                  :label="item.name"
-                  :value="item.code"
+                    v-for="item in platformlist"
+                    :key="item.code"
+                    :label="item.name"
+                    :value="item.code"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -327,6 +339,7 @@ export default {
         isSign: "",//是否签收
         isSendPayment: "",//是否送定
         platform: "",//所属平台
+        isProfit: "",
       },
       tableHeight: "74vh",
       tableData: [],
@@ -424,6 +437,7 @@ export default {
       me.formData.size = "";
       me.formData.isSign = "";
       me.formData.isSendPayment = "";
+      me.formData.isProfit = "";
       me.formData.platform = "";
       me.pageNum = 1;
       me.queryItemsList();
@@ -440,44 +454,44 @@ export default {
           me.totalCount = res.page.totalCount;
         }
       })
-        .catch(err => {
-          // if (err && err.response && err.response.status) {
-          //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
-          // } else {
-          //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
-          // }
-        })
+          .catch(err => {
+            // if (err && err.response && err.response.status) {
+            //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
+            // } else {
+            //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
+            // }
+          })
     },
     // 导出
     handleExport() {
       downloadModle()
-        .then((res) => {
-          // 如果下载失败，返回的是JSON，解析之后给提示
-          if (res.data.type == "application/json") {
-            const reader = new FileReader();
-            reader.readAsText(res.data, 'utf-8');
-            reader.onload = function () {
-              const {msg} = JSON.parse(reader.result);
-              //reader.result里面含报错信息
-              publicFunc.showModalTips(msg || `下载失败，请稍后再试~\n错误码：${res.code}`);
+          .then((res) => {
+            // 如果下载失败，返回的是JSON，解析之后给提示
+            if (res.data.type == "application/json") {
+              const reader = new FileReader();
+              reader.readAsText(res.data, 'utf-8');
+              reader.onload = function () {
+                const {msg} = JSON.parse(reader.result);
+                //reader.result里面含报错信息
+                publicFunc.showModalTips(msg || `下载失败，请稍后再试~\n错误码：${res.code}`);
+              }
+              return;
             }
-            return;
-          }
-          if (res.data && res.status == 200) {
-            let fileNameRes = res.headers["content-disposition"].replace(`attachment;filename*=utf-8''`, "").replace(`"`, "");
-            var fileName = decodeURIComponent(fileNameRes);
-            publicFunc.downloadFile(res.data, fileName);
-          } else {
-            publicFunc.showModalTips(res.msg || `导出失败，请稍后重试~\n错误码：${res.code}`);
-          }
-        })
-        .catch((err) => {
-          if (err && err.response && err.response.status) {
-            publicFunc.showModalTips(`对不起，系统错误，错误码：${err.response.status}`);
-          } else {
-            publicFunc.showModalTips(err.msg || err.message || "对不起，系统错误，请稍后再试~");
-          }
-        });
+            if (res.data && res.status == 200) {
+              let fileNameRes = res.headers["content-disposition"].replace(`attachment;filename*=utf-8''`, "").replace(`"`, "");
+              var fileName = decodeURIComponent(fileNameRes);
+              publicFunc.downloadFile(res.data, fileName);
+            } else {
+              publicFunc.showModalTips(res.msg || `导出失败，请稍后重试~\n错误码：${res.code}`);
+            }
+          })
+          .catch((err) => {
+            if (err && err.response && err.response.status) {
+              publicFunc.showModalTips(`对不起，系统错误，错误码：${err.response.status}`);
+            } else {
+              publicFunc.showModalTips(err.msg || err.message || "对不起，系统错误，请稍后再试~");
+            }
+          });
     },
     exportPcYcgAccount() {
     },
@@ -564,28 +578,28 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       })
-        .then(() => {
-          let param = me.selectedRows[0].id
-          deleteShoesInfo(param).then(response => {
-            if (response.code == 200) {
-              publicFunc.showModalTips("删除成功！！！")
-              me.addShowInfoDialogVisible = false
-              me.handleQuery()
-            }
-          }).catch(err => {
-            if (err && err.response && err.response.status) {
-              publicFunc.showModalTips(err.msg || `删除失败~\n错误码：${err.code}`);
-            } else {
-              publicFunc.showModalTips(err.msg || `删除失败，请稍后重试~\n错误码：${err.code}`);
-            }
+          .then(() => {
+            let param = me.selectedRows[0].id
+            deleteShoesInfo(param).then(response => {
+              if (response.code == 200) {
+                publicFunc.showModalTips("删除成功！！！")
+                me.addShowInfoDialogVisible = false
+                me.handleQuery()
+              }
+            }).catch(err => {
+              if (err && err.response && err.response.status) {
+                publicFunc.showModalTips(err.msg || `删除失败~\n错误码：${err.code}`);
+              } else {
+                publicFunc.showModalTips(err.msg || `删除失败，请稍后重试~\n错误码：${err.code}`);
+              }
+            })
           })
-        })
-        .catch(() => {
-          me.$message({
-            type: "info",
-            message: "已取消",
+          .catch(() => {
+            me.$message({
+              type: "info",
+              message: "已取消",
+            });
           });
-        });
     },
     //文件上传之前
     beforeUpload(file) {
