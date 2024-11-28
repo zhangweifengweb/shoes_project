@@ -9,7 +9,8 @@
       <!-- 表格 -->
       <div class="table-buttons-box-index">
       </div>
-      <div class="statisClass">
+
+      <el-card shadow="hover">
         <el-row>
           <el-col :span="8">
             <div>
@@ -46,11 +47,12 @@
             </div>
           </el-col>
         </el-row>
-      </div>
+      </el-card>
+
       <P class="title_box">账号</P>
       <el-table ref="table1" :data="tableData1" tooltip-effect="dark" style="width: 100%" :height="tableHeight"
                 border :header-cell-style="{ background: '#FAFAFA', color: '#262626', textAlign: 'center' }"
-                highlight-current-row
+                highlight-current-row :row-style="publicFunc.tableRowStyleHandle"
       >
         <el-table-column align="center" width="60" label="序号" type="index"></el-table-column>
         <el-table-column sortable align="center" prop="name" label="账号名"></el-table-column>
@@ -66,7 +68,7 @@
       <P class="title_box">平台</P>
       <el-table ref="table2" :data="tableData2" tooltip-effect="dark" style="width: 100%" :height="tableHeight"
                 border :header-cell-style="{ background: '#FAFAFA', color: '#262626', textAlign: 'center' }"
-                highlight-current-row
+                highlight-current-row :row-style="publicFunc.tableRowStyleHandle"
       >
         <el-table-column align="center" width="60" label="序号" type="index"></el-table-column>
         <el-table-column sortable align="center" prop="platform" label="所属平台"
@@ -91,6 +93,8 @@
   </div>
 </template>
 <script>
+import publicFunc from "@/utils/publicFunc";
+
 let me;
 import {
   count2
@@ -100,7 +104,7 @@ export default {
   components: {},
   data() {
     return {
-
+      publicFunc: publicFunc,
       tableHeight: "74vh",
       tableData1: [],
       tableData2: [],
@@ -147,14 +151,16 @@ export default {
         }
       })
           .catch(err => {
-            // if (err && err.response && err.response.status) {
-            //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
-            // } else {
-            //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
-            // }
+            if (err) {
+              publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
+            }
           })
     },
-
+    // tableRowStyleHandle({row, rowIndex}) {
+    //   if (rowIndex % 2 === 0) {
+    //     return {'background-color': '#f0f9eb'}
+    //   }
+    // }
   },
 };
 </script>
@@ -163,24 +169,20 @@ export default {
   font-size: 24px;
 }
 
-.statisClass {
-  padding: 1%;
-  border: 1px dashed #ccc;
-  border-radius: 5px;
 
-  /deep/ .el-statistic {
-    .title {
-      font-size: 14px;
-      font-weight: bold;
+/deep/ .el-statistic {
+  .title {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .con {
+    .prefix {
+      font-size: 18px;
+      color: blue;
     }
 
-    .con {
-      .prefix {
-        font-size: 18px;
-        color: blue;
-      }
-
-    }
   }
 }
+
 </style>

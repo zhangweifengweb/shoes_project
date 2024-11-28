@@ -43,7 +43,7 @@
       </div>
       <el-table ref="pcTable" :data="tableData" tooltip-effect="dark" style="width: 100%" :height="tableHeight"
                 border :header-cell-style="{ background: '#FAFAFA', color: '#262626', textAlign: 'center' }"
-                highlight-current-row
+                highlight-current-row :row-style="publicFunc.tableRowStyleHandle"
       >
         <el-table-column align="center" width="60" label="序号" type="index" :index="indexMethod"></el-table-column>
         <el-table-column sortable align="center" prop="name" label="名称"></el-table-column>
@@ -64,6 +64,8 @@
   </div>
 </template>
 <script>
+import publicFunc from "@/utils/publicFunc";
+
 let me;
 import Pagination from "@/components/pagination";
 import {
@@ -76,7 +78,7 @@ export default {
   },
   data() {
     return {
-
+      publicFunc: publicFunc,
       tableHeight: "74vh",
       tableData: [],
       totalCount: 0,
@@ -142,13 +144,13 @@ export default {
           me.totalCount = res.page.totalCount;
         }
       })
-        .catch(err => {
-          // if (err && err.response && err.response.status) {
-          //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
-          // } else {
-          //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
-          // }
-        })
+          .catch(err => {
+            // if (err && err.response && err.response.status) {
+            //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
+            // } else {
+            //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
+            // }
+          })
     },
     // 每页展示数量变化时
     handleSizeChange(e) {

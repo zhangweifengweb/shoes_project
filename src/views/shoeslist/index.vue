@@ -82,14 +82,14 @@
       </div>
       <!-- 表格 -->
       <div class="table-buttons-box-index">
-        <el-button size="mini" type="primary" @click="addHandler">
+        <el-button size="mini" type="primary" @click="addHandler" :disabled="selectedRows.length==1?false:true">
           新增
         </el-button>
         <el-button size="mini" type="success"
-                   @click="editHandler">
+                   @click="editHandler" :disabled="selectedRows.length==1?false:true">
           修改
         </el-button>
-        <el-button size="mini" type="danger" @click="cancleHandler">
+        <el-button size="mini" type="danger" @click="cancleHandler" :disabled="selectedRows.length>0?false:true">
           删除
         </el-button>
         <el-button size="mini" type="success" @click="handleExport">
@@ -108,7 +108,7 @@
       <el-table ref="pcTable" :data="tableData" tooltip-effect="dark" style="width: 100%" :height="tableHeight"
                 border stripe :header-cell-style="{ background: '#FAFAFA', color: '#262626', textAlign: 'center' }"
                 highlight-current-row @selection-change="selectedRowsChange" @row-click="handleRowClick"
-                @row-dblclick="handleSelectedDetail">
+                @row-dblclick="handleSelectedDetail" :row-style="publicFunc.tableRowStyleHandle">
         <el-table-column align="center" type="selection" width="60"></el-table-column>
         <el-table-column align="center" width="60" label="序号" type="index" :index="indexMethod"></el-table-column>
         <el-table-column sortable align="center" prop="name" label="名称"></el-table-column>
@@ -498,26 +498,26 @@ export default {
     // 单击某一行
     handleRowClick(row, column, event) {
       // me.selectedRows = []
-      me.$refs.pcTable.clearSelection();
+      // me.$refs.pcTable.clearSelection();
       me.$refs.pcTable.toggleRowSelection(row);
     },
     // 主页面 单选
     selectedRowsChange(selection) {
-      if (selection.length > 1) {
-        me.$refs.pcTable.clearSelection();
-        me.$refs.pcTable.toggleRowSelection(selection[selection.length - 1]);
-        me.selectedRows = selection[selection.length - 1];
-      } else if (selection.length == 1) {
-        // me.selectedRows = selection[0];
-        me.selectedRows = selection;
-      } else {
-        me.selectedRows = null;
-      }
-      // if (selection.length >= 1) {
+      // if (selection.length > 1) {
+      //   me.$refs.pcTable.clearSelection();
+      //   me.$refs.pcTable.toggleRowSelection(selection[selection.length - 1]);
+      //   me.selectedRows = selection[selection.length - 1];
+      // } else if (selection.length == 1) {
+      //   // me.selectedRows = selection[0];
       //   me.selectedRows = selection;
       // } else {
-      //   me.selectedRows = [];
+      //   me.selectedRows = null;
       // }
+      if (selection.length >= 1) {
+        me.selectedRows = selection;
+      } else {
+        me.selectedRows = [];
+      }
     },
     // 双击查看详情
     handleSelectedDetail(row) {
@@ -569,17 +569,16 @@ export default {
       })
     },
     cancleHandler() {
-      if (!(me.selectedRows.length != 0 && me.selectedRows[0].id)) {
-        publicFunc.showModalTips("请选择有效信息删除！！！")
-        return
-      }
-      me.$confirm(`此操作将把${me.selectedRows[0].name}的球鞋信息删除, 是否继续?`, "提示", {
+      let idsStr = me.selectedRows.map(item => {
+        return item.id
+      }).join(",")
+      me.$confirm(`此操作将把所选的球鞋信息删除, 是否继续?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
           .then(() => {
-            let param = me.selectedRows[0].id
+            let param = idsStr
             deleteShoesInfo(param).then(response => {
               if (response.code == 200) {
                 publicFunc.showModalTips("删除成功！！！")

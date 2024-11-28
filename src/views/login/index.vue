@@ -48,15 +48,15 @@ export default {
   },
   mounted() {
     // this.login()
-    window.addEventListener('keyup',this.handleKeyDown)
+    window.addEventListener('keyup', this.handleKeyDown)
   },
   beforeDestroy() {
     window.removeEventListener('keyup', this.handleKeyDown);
   },
   methods: {
-    handleKeyDown(event){
+    handleKeyDown(event) {
       const keyCode = event.keyCode;
-      if(keyCode=='13'){
+      if (keyCode == '13') {
         this.login()
       }
     },
@@ -65,12 +65,12 @@ export default {
       this.formData.password = ""
     },
     login() {
-      if(!this.formData.userName){
+      if (!this.formData.userName) {
         publicFunc.showModalTips("请输入账号！！！");
         return
       }
 
-      if(!this.formData.password){
+      if (!this.formData.password) {
         publicFunc.showModalTips("请输入密码！！！");
         return
       }
@@ -110,7 +110,7 @@ export default {
   align-items: center;
 
   .formBox {
-    width: 15vw;
+    width: 30%;
     height: 15vh;
 
     /deep/ .el-form-item {

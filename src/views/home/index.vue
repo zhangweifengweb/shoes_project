@@ -1,7 +1,7 @@
 <template>
 
   <el-container>
-    <el-aside>
+    <el-aside width="auto">
       <navmenu></navmenu>
     </el-aside>
     <el-container>
@@ -30,5 +30,7 @@ export default {
 <style lang="less">
 .el-container {
   height: 100%;
+
+
 }
 </style>

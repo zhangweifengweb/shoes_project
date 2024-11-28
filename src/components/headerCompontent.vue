@@ -29,7 +29,7 @@ export default {
     }
   },
   mounted() {
-    console.log("this", this.$router)
+
   },
   methods: {
     handleCommand(liginOut) {
@@ -43,7 +43,7 @@ export default {
           localStorage.clear()
           publicFunc.showModalTips(res.message);
           this.$router.push({
-            path: "/home"
+            path: "/login"
           })
         } else {
           publicFunc.showModalTips(res.msg || `查询失败，请稍后重试~\n错误码：${res.code}`);

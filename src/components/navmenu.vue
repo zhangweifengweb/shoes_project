@@ -1,60 +1,82 @@
 <template>
-  <div class="navbox">
-    <el-menu default-active="priceStatics" @select="handleOpen" class="el-menu-vertical-demo">
-      <el-menu-item index="priceStatics">
-        <i class="el-icon-s-data"></i>
-        <span slot="title">账号信息总览</span>
-      </el-menu-item>
-      <el-menu-item index="saleInfo">
-        <i class="el-icon-menu"></i>
-        <span slot="title">球鞋信息总览</span>
-      </el-menu-item>
-
-      <el-menu-item index="shoesInfo">
-        <i class="el-icon-edit"></i>
-        <span slot="title">球鞋管理</span>
-      </el-menu-item>
-      <!--      <el-menu-item index="perInfo">-->
-      <!--        <i class="el-icon-menu"></i>-->
-      <!--        <span slot="title">人员管理</span>-->
-      <!--      </el-menu-item>-->
-    </el-menu>
+  <div class="pageLeftBox">
+    <div class="closBox">
+      <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'" @click="isCollapse = !isCollapse"></i>
+    </div>
+    <div class="navbox">
+      <el-menu :default-active="activeName" @select="handleOpen" class="el-menu-vertical-demo"
+               :collapse="isCollapse">
+        <el-menu-item v-for="item in routeList" :key="item.name" :index="item.path">
+          <i :class="item.meta.iconClass"></i>
+          <span slot="title">{{ item.meta.pageName }}</span>
+        </el-menu-item>
+      </el-menu>
+    </div>
   </div>
+
 </template>
 <script>
 export default {
-  methods: {
-    handleOpen(key) {
-      if (key == 'saleInfo') {
-        this.$router.push({
-          path: "/home/shoesSaleInfo"
-        })
+  data() {
+    return {
+      isCollapse: false,
+      activeName: this.$route.path,
+      routeList: [],
+    }
+  },
+  mounted() {
+    let parentRoute = [];
+    parentRoute = this.$router.options.routes.filter(item => {
+      if (item.children) {
+        return item
       }
-          // else if (key == 'perInfo') {
-          //   this.$router.push({
-          //     path: "/home/perInfo"
-          //   })
-      // }
-      else if (key == 'shoesInfo') {
-        this.$router.push({
-          path: "/home/shoeslist"
-        })
-      } else if (key == 'priceStatics') {
-        this.$router.push({
-          path: "/home/priceStatistics"
-        })
-      }
+    })
+    this.routeList = parentRoute[0].children
+  },
+  watch: {
+    $route(to, from) {
+      this.activeName = to.path
+    }
+  },
 
+  methods: {
+    handleOpen(path) {
+      this.$router.push({
+        path
+      })
     },
   }
 }
 </script>
 <style lang="less" scoped>
-.navbox {
+.pageLeftBox {
   height: 100%;
 
-  .el-menu {
-    height: 100%;
+  .closBox {
+    text-align: right;
+
+    i {
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    i:hover {
+      color: #FF3300FF;
+    }
+  }
+
+  .navbox {
+    height: calc(100% - 30px);
+
+    .el-menu-vertical-demo:not(.el-menu--collapse) {
+      width: 240px;
+      //min-height: 400px;
+    }
+
+    .el-menu {
+      height: 100%;
+    }
   }
 }
+
 </style>
