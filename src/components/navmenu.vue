@@ -54,6 +54,11 @@ export default {
 
   .closBox {
     text-align: right;
+    background: #ccc;
+
+    p {
+      font-size: 1.5em;
+    }
 
     i {
       font-size: 25px;
