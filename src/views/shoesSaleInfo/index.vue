@@ -35,6 +35,28 @@
                 <el-input v-model="formData.createBy" placeholder="请输入" clearable></el-input>
               </el-form-item>
             </el-col>
+            <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="6">
+              <el-form-item label="开始时间">
+                <el-date-picker
+                    v-model="formData.startTime"
+                    type="date"
+                    placeholder="请选择开始日期"
+                    value-format="yyyy-MM-dd"
+                    format="yyyy-MM-dd">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="6">
+              <el-form-item label="结束时间">
+                <el-date-picker
+                    v-model="formData.endTime"
+                    type="date"
+                    placeholder="请选择结束日期"
+                    value-format="yyyy-MM-dd"
+                    format="yyyy-MM-dd">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
           </el-row>
         </el-form>
       </div>
@@ -64,9 +86,8 @@
   </div>
 </template>
 <script>
-import publicFunc from "@/utils/publicFunc";
-
 let me;
+import publicFunc from "@/utils/publicFunc";
 import Pagination from "@/components/pagination";
 import {
   count1
@@ -85,7 +106,14 @@ export default {
       pageNum: 1,
       pageSizeList: [50, 100, 200],
       pageSize: 50,
-      formData: {},
+      formData: {
+        name: "",
+        number: "",
+        size: "",
+        createBy: "",
+        endTime: "",
+        startTime: "",
+      },
     };
   },
   mounted() {
@@ -128,6 +156,8 @@ export default {
       me.formData.name = "";
       me.formData.size = "";
       me.formData.createBy = "";
+      me.formData.startTime = "";
+      me.formData.endTime = "";
       me.pageNum = 1;
       me.queryItemsList();
     },
@@ -145,11 +175,9 @@ export default {
         }
       })
           .catch(err => {
-            // if (err && err.response && err.response.status) {
-            //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
-            // } else {
-            //   publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
-            // }
+            if (err) {
+              publicFunc.showModalTips("查询失败，请联系开发人员！！！");
+            }
           })
     },
     // 每页展示数量变化时
@@ -168,50 +196,46 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-/deep/ .el-dialog__header {
-  background: #409eff9c;
-}
 
-/deep/ .el-dialog__body {
-  .el-form {
-    .el-row {
-      .el-col {
-        .el-form-item {
-          width: 100%;
+///deep/ .el-form {
+//  .el-row {
+//    .el-col {
+//      .el-form-item {
+//        width: 100%;
+//
+//        .el-form-item__label {
+//          width: 90px;
+//        }
+//
+//        .el-form-item__content {
+//          width: calc(100% - 100px);
+//
+//          .el-date-editor,
+//          .el-select {
+//            width: 100%;
+//          }
+//        }
+//      }
+//    }
+//  }
+//
+//}
 
-          .el-form-item__label {
-            width: 90px;
-          }
-
-          .el-form-item__content {
-            width: calc(100% - 100px);
-
-            .el-select {
-              width: 100%;
-            }
-          }
-        }
-      }
-    }
-
-  }
-}
-
-.el-cascader {
-  /deep/ .el-cascader__tags {
-    height: 24px;
-    white-space: nowrap;
-    overflow: hidden;
-    flex-wrap: nowrap;
-  }
-}
-
-.el-select {
-  /deep/ .el-select__tags {
-    height: 24px;
-    white-space: nowrap;
-    overflow: hidden;
-    flex-wrap: nowrap;
-  }
-}
+//.el-cascader {
+//  /deep/ .el-cascader__tags {
+//    height: 24px;
+//    white-space: nowrap;
+//    overflow: hidden;
+//    flex-wrap: nowrap;
+//  }
+//}
+//
+//.el-select {
+//  /deep/ .el-select__tags {
+//    height: 24px;
+//    white-space: nowrap;
+//    overflow: hidden;
+//    flex-wrap: nowrap;
+//  }
+//}
 </style>

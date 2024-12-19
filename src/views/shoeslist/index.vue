@@ -77,6 +77,28 @@
                 </el-select>
               </el-form-item>
             </el-col>
+            <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="6">
+              <el-form-item label="开始时间">
+                <el-date-picker
+                    v-model="formData.startTime"
+                    type="date"
+                    placeholder="请选择开始日期"
+                    value-format="yyyy-MM-dd"
+                    format="yyyy-MM-dd">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="6">
+              <el-form-item label="结束时间">
+                <el-date-picker
+                    v-model="formData.endTime"
+                    type="date"
+                    placeholder="请选择结束日期"
+                    value-format="yyyy-MM-dd"
+                    format="yyyy-MM-dd">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
           </el-row>
         </el-form>
       </div>
@@ -340,6 +362,8 @@ export default {
         isSendPayment: "",//是否送定
         platform: "",//所属平台
         isProfit: "",
+        startTime: "",
+        endTime: "",
       },
       tableHeight: "74vh",
       tableData: [],
@@ -439,6 +463,8 @@ export default {
       me.formData.isSendPayment = "";
       me.formData.isProfit = "";
       me.formData.platform = "";
+      me.formData.startTime = "";
+      me.formData.endTime = "";
       me.pageNum = 1;
       me.queryItemsList();
     },

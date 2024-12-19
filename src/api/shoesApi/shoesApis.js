@@ -15,4 +15,4 @@ export const loginOut = () => post('/system/loginOut');
 
 export const count1 = params => post('/shoes/count1', params);
 
-export const count2 = () => post('/shoes/count2');
+export const count2 = params => post('/shoes/count2', params);

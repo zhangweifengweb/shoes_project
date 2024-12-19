@@ -3,7 +3,41 @@
     <div class="showsList_main">
       <!-- 检索条件 -->
       <div class="form-parent-newbox">
-
+        <div class="form-title-area">
+          <div class="form-title-area-left">
+            <span>查询条件</span>
+          </div>
+          <div class="form-title-area-right">
+            <el-button size="mini" icon="el-icon-search" type="primary" @click="handleQuery">查询</el-button>
+            <el-button size="mini" icon="el-icon-refresh" type="primary" @click="handleReset">重置</el-button>
+          </div>
+        </div>
+        <el-form size="mini" class="form-area-box" :inline="true" :model="formData" label-position="left">
+          <el-row>
+            <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="6">
+              <el-form-item label="开始时间">
+                <el-date-picker
+                    v-model="formData.startTime"
+                    type="date"
+                    placeholder="请选择开始日期"
+                    value-format="yyyy-MM-dd"
+                    format="yyyy-MM-dd">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="6">
+              <el-form-item label="结束时间">
+                <el-date-picker
+                    v-model="formData.endTime"
+                    type="date"
+                    placeholder="请选择结束日期"
+                    value-format="yyyy-MM-dd"
+                    format="yyyy-MM-dd">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
       </div>
 
       <!-- 表格 -->
@@ -111,6 +145,10 @@ export default {
       endTotalBuyRate: "",
       endTotalSellRate: "",
       endTotalProfitRate: "",
+      formData: {
+        startTime: "",
+        endTime: "",
+      }
     };
   },
   mounted() {
@@ -137,10 +175,16 @@ export default {
         me.tableHeight = (pageHeight.offsetHeight - formDom.offsetHeight - tableButtonsDom.offsetHeight - 40) / 3 + "px";
       })
     },
-
+    handleReset() {
+      me.formData.startTime = ""
+      me.formData.endTime = ""
+    },
+    handleQuery() {
+      me.queryItemsList()
+    },
     // 查询表格数据
     queryItemsList() {
-      count2().then(res => {
+      count2(me.formData).then(res => {
         if (res.code == 0) {
           me.tableData1 = res.data.list;
           me.tableData2 = res.data.shoesItemCount;
@@ -152,7 +196,7 @@ export default {
       })
           .catch(err => {
             if (err) {
-              publicFunc.showModalTips(err.msg || `导出失败，请稍后重试~\n错误码：${err.code}`);
+              publicFunc.showModalTips("查询失败，请联系开发人员！！！");
             }
           })
     },
@@ -168,8 +212,6 @@ export default {
 .title_box {
   font-size: 24px;
 }
-
-
 /deep/ .el-statistic {
   .title {
     font-size: 14px;
