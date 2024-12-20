@@ -104,7 +104,7 @@
       </div>
       <!-- 表格 -->
       <div class="table-buttons-box-index">
-        <el-button size="mini" type="primary" @click="addHandler" :disabled="selectedRows.length==1?false:true">
+        <el-button size="mini" type="primary" @click="addHandler">
           新增
         </el-button>
         <el-button size="mini" type="success"
